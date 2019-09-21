@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="UTF-8">
+            <title>four in a row!</title>
+            <link rel="stylesheet" type="text/css" href="4 in a row!.css">
+
+    </head>
+
+    <body onload="start_new_game()">
+
+        <script>
+            var turns = ["blue", "red"];
+            turn = turns[Math.floor(Math.random() * turns.length)];
+            turns = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var gameover = 0;
+            function start_new_game() {
+                document.getElementById("turn_lable").innerHTML = "I'ts " + turn + " turn";
+            }
+
+            function change_turn() {
+                
+                if (turn == "blue") {                   
+                    turn = "red";
+                }
+                else {
+                    turn = "blue";
+                } 
+                document.getElementById("turn_lable").innerHTML = "I'ts " + turn + " turn";
+                if (gameover ==1) {
+                    document.getElementById("turn_lable").innerHTML = "press f5 yo start over";
+                }
+            }
+
+            
+            function draw(x) {
+                if (gameover==0) {
+                    while (!(x <= 5)) {
+                        x = x - 6   // turns x into num of row 
+                    }
+                    if (x == 0) {
+                        var place = 30;
+                        while (turns[place] != 0 && place > -1) {
+                            place = place - 6;
+                        }
+                        make(place)
+                    }
+                    if (x == 1) {
+                        var place = 31;
+                        while (turns[place] != 0 && place > 0) {
+                            place = place - 6;
+                        }
+                        make(place)
+                    }
+                    if (x == 2) {
+                        var place = 32;
+                        while (turns[place] != 0 && place > 0) {
+                            place = place - 6;
+                        }
+                        make(place)
+                    }
+                    if (x == 3) {
+                        var place = 33;
+                        while (turns[place] != 0 && place > 0) {
+                            place = place - 6;
+                        }
+                        make(place)
+                    }
+                    if (x == 4) {
+                        var place = 34;
+                        while (turns[place] != 0 && place > 0) {
+                            place = place - 6;
+                        }
+                        make(place)
+                    }
+                    if (x == 5) {
+                        var place = 35;
+                        while (turns[place] != 0 && place > 0) {
+                            place = place - 6;
+                        }
+                        make(place)
+                    }
+                }
+                
+            } 
+            
+            function make(place) {
+                if (turn == "blue") {
+                    var sqr = document.getElementById(place).style.backgroundColor = "blue";
+                    turns[place] = "blue"
+                    nizahon("blue")
+                }
+                if (turn == "red") {
+                    var sqr = document.getElementById(place).style.backgroundColor = "red";
+                    turns[place] = "red"
+                    nizahon("red")
+                }
+                change_turn();
+            }
+
+            function nizahon(my_color) {
+                //=================================lins=======================================
+                var spot
+                var arr = []
+                for (i = 0; i < 6; i++) {// line 4 הכי גבוהה
+                    for (j = 0; j < 4; j++) {
+                        spot = i + (j * 6)
+                        arr.push(spot)                     
+                    }
+                    if (same4_color(arr[0], arr[1], arr[2], arr[3], my_color) == true)
+                    { win(arr[0], arr[1], arr[2], arr[3], my_color) }
+                    arr=[]
+                }
+                for (i = 6; i < 12; i++) {// line 4אמצע
+                    for (j = 0; j < 4; j++) {
+                        spot = i + (j * 6)
+                        arr.push(spot)
+                    }
+                    if (same4_color(arr[0], arr[1], arr[2], arr[3], my_color) == true)
+                    { win(arr[0], arr[1], arr[2], arr[3], my_color) }
+                    arr = []
+                }
+                for (i = 12; i < 18; i++) { // line 4 למטה
+                    for (j = 0; j < 4; j++) {
+                        spot = i + (j * 6)
+                        arr.push(spot)
+                    }
+                    if (same4_color(arr[0], arr[1], arr[2], arr[3], my_color) == true)
+                    { win(arr[0], arr[1], arr[2], arr[3], my_color) }
+                    arr = []
+                }
+                //==================================rows===========================================
+                for (i = 0; i < 6; i++) { // row שמאל ביותר 
+                    for (j = 0; j < 4; j++) {
+                        spot = j + (i * 6)
+                        arr.push(spot)
+                    }
+                    if (same4_color(arr[0], arr[1], arr[2], arr[3], my_color) == true)
+                    { win(arr[0], arr[1], arr[2], arr[3], my_color) }
+                    arr = []
+                }
+                 for (i = 0; i < 6; i++) { // row אמצע 
+                    for (j = 1; j <5; j++) {
+                        spot = j + (i * 6)
+                        arr.push(spot)
+                    }
+                     if (same4_color(arr[0], arr[1], arr[2], arr[3], my_color) == true)
+                     { win(arr[0], arr[1], arr[2], arr[3], my_color) }
+                    arr = []
+                }
+                for (i = 0; i < 6; i++) { // row שמאל ביותר 
+                    for (j = 2; j < 6; j++) {                     
+                        spot = j + (i * 6)
+                        arr.push(spot)
+                    }
+                    if (same4_color(arr[0], arr[1], arr[2], arr[3], my_color) == true)
+                    { win(arr[0], arr[1], arr[2], arr[3], my_color) }
+                    arr = []
+                }
+                //==================================slants אלכסונים===========================================
+                if (same4_color(12, 19, 26, 33, my_color) == true) { win(12, 19, 26, 33, my_color) }
+                if (same4_color(2, 9, 16, 23, my_color) == true) { win(2, 9, 16, 23, my_color) }
+                if (same4_color(6, 13, 20, 27, my_color) == true) { win(6, 13, 20, 27, my_color) }
+                if (same4_color(13, 20, 27, 34, my_color) == true) { win(13, 20, 27, 34, my_color) }
+                if (same4_color(0, 7, 14, 21, my_color) == true) { win(0, 7, 14, 21, my_color) }
+                if (same4_color(7, 14, 21, 28, my_color) == true) { win(7, 14, 21, 28, my_color) }
+                if (same4_color(14, 21, 28, 35, my_color) == true) { win(14, 21, 28, 35, my_color) }
+                if (same4_color(1, 8, 15, 22, my_color) == true) { win(1, 8, 15, 22, my_color) }
+                if (same4_color(29, 8, 15, 22, my_color) == true) { win(29, 8, 15, 22, my_color) }
+
+
+                if (same4_color(3, 8, 13, 18, my_color) == true)   { win(3, 8, 13, 18, my_color) }
+                if (same4_color(17, 22, 27, 32, my_color) == true) { win(17, 22, 27, 32, my_color) }
+                if (same4_color(31, 26, 21, 16, my_color) == true) { win(31, 26, 21, 16, my_color) }
+                if (same4_color(26, 21, 11, 16, my_color) == true) { win(26, 21, 11, 16, my_color) }
+                if (same4_color(24, 19, 14, 9, my_color) == true) { win(24, 19, 14, 9, my_color) }
+                if (same4_color(19, 14, 9, 4, my_color) == true)  { win(19, 14, 9, 4, my_color) }
+                if (same4_color(30, 25, 20, 15, my_color) == true){ win(30, 25, 20, 15, my_color) }
+                if (same4_color(25, 20, 15, 10, my_color) == true){ win(25, 20, 15, 10, my_color) }
+                if (same4_color(5, 10, 15, 20, my_color) == true) { win(5, 10, 15, 20, my_color) }
+                if (same4_color(29, 8, 15, 22, my_color) == true) { win(29, 8, 15, 22, my_color) }
+            }
+            
+            function win(c1, c2, c3, c4, mycolor) {
+                
+                alert(mycolor + " won!")
+                gameover = 1;
+                document.getElementById(c1).style.backgroundColor = "pink";
+                document.getElementById(c2).style.backgroundColor = "pink";
+                document.getElementById(c3).style.backgroundColor = "pink";
+                document.getElementById(c4).style.backgroundColor = "pink";
+            }
+
+
+            function same4_color(c1, c2, c3, c4, my_color) {
+                return (turns[c1] == turns[c2] && turns[c2] == turns[c3] && turns[c3] == turns[c4] && turns[c4] == my_color);
+            }
+        </script>
+
+        <h1>Tic Tac Toe</h1>
+
+
+
+        <table>
+            <tr>
+                <td id="0" onclick="draw(0)">   </td>
+                <td id="1" onclick="draw(1)">   </td>
+                <td id="2" onclick="draw(2)">   </td>
+                <td id="3" onclick="draw(3)">   </td>
+                <td id="4" onclick="draw(4)">   </td>
+                <td id="5" onclick="draw(5)">   </td>
+            </tr>
+
+            <tr>
+                <td id="6" onclick="draw(6)"></td>
+                <td id="7" onclick="draw(7)"></td>
+                <td id="8" onclick="draw(8)"></td>
+                <td id="9" onclick="draw(9)"></td>
+                <td id="10" onclick="draw(10)"></td>
+                <td id="11" onclick="draw(11)"></td>
+            </tr>
+
+            <tr>
+                <td id="12" onclick="draw(12)"></td>
+                <td id="13" onclick="draw(13)"></td>
+                <td id="14" onclick="draw(14)"></td>
+                <td id="15" onclick="draw(15)"></td>
+                <td id="16" onclick="draw(16)"></td>
+                <td id="17" onclick="draw(17)"></td>
+            </tr>
+
+            <tr>
+                <td id="18" onclick="draw(18)"></td>
+                <td id="19" onclick="draw(19)"></td>
+                <td id="20" onclick="draw(20)"></td>
+                <td id="21" onclick="draw(21)"></td>
+                <td id="22" onclick="draw(22)"></td>
+                <td id="23" onclick="draw(23)"></td>
+            </tr>
+
+            <tr>
+                <td id="24" onclick="draw(24)"></td>
+                <td id="25" onclick="draw(25)"></td>
+                <td id="26" onclick="draw(26)"></td>
+                <td id="27" onclick="draw(27)"></td>
+                <td id="28" onclick="draw(28)"></td>
+                <td id="29" onclick="draw(29)"></td>
+            </tr>
+
+            <tr>
+                <td id="30" onclick="draw(30)"></td>
+                <td id="31" onclick="draw(31)"></td>
+                <td id="32" onclick="draw(32)"></td>
+                <td id="33" onclick="draw(33)"></td>
+                <td id="34" onclick="draw(34)"></td>
+                <td id="35" onclick="draw(35)"></td>
+            </tr>
+        </table>
+
+        <h1 id="turn_lable" >its turn</h1>
+
+
+    </body>
+</html>
+

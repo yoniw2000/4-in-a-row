@@ -1,0 +1,17 @@
+﻿h1 {
+    text-align: center;
+}
+h1:hover {
+    color:#b01616;
+}
+table {
+    margin-left: 420px;
+    border: 1px solid black;
+}
+td {
+    width: 75px;
+    height: 75px;
+    font-size: 50px;
+    text-align: center;
+    border: 1px solid black;
+}
